@@ -1,0 +1,190 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  transition: background 2s ease;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+}
+
+.sun {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #ffeb3b, #ffc107);
+  border-radius: 50%;
+  top: 15%;
+  left: 10%;
+  box-shadow: 0 0 60px #ff9800, 0 0 120px #ff5722;
+  animation: sunMove 24s linear infinite;
+  z-index: 0;
+}
+
+@keyframes sunMove {
+  0% { left: -10%; top: 60%; transform: scale(0.8); }
+  25% { left: 25%; top: 20%; transform: scale(1); }
+  50% { left: 50%; top: 10%; transform: scale(1.1); }
+  75% { left: 75%; top: 20%; transform: scale(1); }
+  100% { left: 110%; top: 60%; transform: scale(0.8); }
+}
+
+.stars, .shooting-stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.stars::after, .stars::before {
+  content: "";
+  position: absolute;
+  width: 2px; height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+.shooting-stars::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, white, rgba(255,255,255,0));
+  animation: shoot 3s linear infinite;
+}
+
+@keyframes shoot {
+  0% { transform: translateX(0) translateY(0) rotate(45deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateX(-1200px) translateY(600px) rotate(45deg); opacity: 0; }
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 8vh auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  color: #f0f0f0;
+  background: linear-gradient(135deg, #2c2c2c, #3a3a3a);
+  animation: gradientShift 8s ease-in-out infinite alternate;
+  background-size: 200% 200%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: transform 0.3s ease;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; background: linear-gradient(135deg, #232526, #414345); }
+  50% { background-position: 100% 50%; background: linear-gradient(135deg, #3a6186, #89253e); }
+  100% { background-position: 0% 50%; background: linear-gradient(135deg, #283e51, #485563); }
+}
+
+.card:hover { transform: scale(1.05); }
+
+h2, h3 { font-family: 'Playfair Display', serif; }
+
+#time {
+  font-size: 3.5rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #ff6b6b, #feca57);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#date { color: #ccc; margin-top: 0.5rem; font-weight: 300; }
+
+.weather-icon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+#temp { font-size: 2.2rem; margin: 0.5rem 0; }
+#location { color: #bbb; font-size: 0.9rem; }
+
+.quote-card {
+  grid-column: span 2;
+  font-style: italic;
+}
+
+#quote {
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  min-height: 3em;
+}
+
+.author {
+  font-weight: 500;
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+}
+
+#character-img {
+  display: block;
+  margin: 1rem auto;
+  border-radius: 20px;
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+#character-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 192, 203, 0.6);
+}
+
+#new-quote {
+  background: linear-gradient(90deg, #ff758c, #ff7eb3);
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 118, 136, 0.5);
+}
+
+#new-quote:hover {
+  box-shadow: 0 0 25px rgba(255, 118, 136, 0.9);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .dashboard { grid-template-columns: 1fr; gap: 1.5rem; }
+  .quote-card { grid-column: span 1; }
+  #time { font-size: 2.8rem; }
+}
